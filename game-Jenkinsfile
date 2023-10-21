@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Checkout from GITHUB') {
             steps {
-                git branch: 'react', url: 'https://github.com/Abbeydauda20/cicdReactGame.git'
+                git branch: 'main', url: 'https://github.com/Abbeydauda20/cicdReactGame.git'
             }
         }
         stage('sonarqube scan') {
