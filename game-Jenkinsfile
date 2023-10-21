@@ -1,23 +1,22 @@
-pipeline{
+pipeline {
     agent any
-    tools{
+    tools {
         jdk 'java17'
         nodejs 'node16'
     }
     environment {
-        SCANNER_HOME=tool 'sonar-scanner'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
-    stages{
-        stage('clean workspace'){
-            steps{
+    stages {
+        stage('Clean Workspace') {
+            steps {
                 cleanWs()
             }
         }
-        stage('check ou from GITHUB){
-            steps{
-                // 
-
+        stage('Checkout from GITHUB') {
+            steps {
+                git url: https://github.com/Abbeydauda20/cicdReactGame.git', branch: 'main'
             }
-        }    
+        }
     }
 }
