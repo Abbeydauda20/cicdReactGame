@@ -15,8 +15,30 @@ pipeline {
         }
         stage('Checkout from GITHUB') {
             steps {
-                git url: https://github.com/Abbeydauda20/cicdReactGame.git', branch: 'main'
+                git branch: 'react', url: 'https://github.com/Abbeydauda20/cicdReactGame.git'
+            }
+        }
+        stage('sonarqube scan') {
+            steps {
+                script {
+                    withSonarQubeEnv('sonar-server') {
+                        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Game-Dsonar.projectKey=Game'''
+                    }
+                }
+            }
+        }
+        stage('quality gate') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
             }
         }
     }
+
 }
